@@ -1,13 +1,13 @@
 
-const Categories = require('../api/models/Categories.model')
-const Comments = require('../api/models/Comments.model')
-const Contributions = require('../api/models/Contributions.model')
-const Financing_Goals = require('../api/models/Financing_Goals.model')
-const Notifications = require('../api/models/Notifications.model')
-const Project_Followers = require('../api/models/Project_Followers.model')
-const Projects = require('../api/models/Projects.model')
-const Ratings = require('../api/models/Ratings.model')
-const Rewards = require('../api/models/Rewards.model')
+const Categories = require('../api/models/categories.model')
+const Comments = require('../api/models/comments.model')
+const Contributions = require('../api/models/contributions.model')
+const Financing_Goals = require('../api/models/financing_Goals.model')
+const Notifications = require('../api/models/notifications.model')
+const Project_Followers = require('../api/models/project_Followers.model')
+const Projects = require('../api/models/projects.model')
+const Ratings = require('../api/models/ratings.model')
+const Rewards = require('../api/models/rewards.model')
 const Users = require('../api/models/user.model')
 
 const createRelations = async () => {

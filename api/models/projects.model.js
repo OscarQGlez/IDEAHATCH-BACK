@@ -3,10 +3,6 @@ const { DataTypes } = require('sequelize')
 
 const Projects = sequelize.define('Projects',
     {
-        project_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true
-        },
         creator_id: {type: DataTypes.INTEGER,},
         title: {type: DataTypes.STRING,},
         subtitle: {type: DataTypes.TEXT,},

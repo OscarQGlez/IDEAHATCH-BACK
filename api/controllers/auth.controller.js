@@ -18,6 +18,7 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
+
     try {
         const user = await User.findOne({ where: { email: req.body.email } })
         if (!user) {
