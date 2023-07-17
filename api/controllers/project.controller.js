@@ -1,5 +1,7 @@
 const Project = require('../models/projects.model')
 const User = require('../models/user.model')
+const Categories  = require ('../models/categories.model')
+const Financing_Goals = require('../models/financing_Goals.model')
 
 async function getAllProjects(req, res) {
     try {
@@ -71,35 +73,16 @@ async function deleteProject(req, res) {
     }
 }
 
-async function getAllProjectsEager(req, res) {
-    try {
-        const projects = await Project.findAll({
-            include: [
-                {
-                    model: User,
-                    as: 'creator',
-                    attributes: ['name', 'email']
-                }
-            ]
-        })
-        if (projects) {
-            return res.status(200).json(projects)
-        } else {
-            return res.status(404).send('No projects found')
-        }
-    } catch (error) {
-        res.status(500).send(error.message)
-    }
-}
 
 async function getOneProjectEager(req, res) {
     try {
         const project = await Project.findByPk(req.params.id, {
             include: [
                 {
-                    model: User,
-                    as: 'creator',
-                    attributes: ['name', 'email']
+                    model: User, 
+                    /* as: 'creator',
+                    attributes: ['name', 'email'], */
+                    model: Categories,
                 }
             ]
         })
@@ -113,6 +96,50 @@ async function getOneProjectEager(req, res) {
     }
 }
 
+async function getAllProjectsEager(req, res) {
+    try {
+        const projects = await Project.findAll({
+            include: [
+                { model: User, 
+                    /* as: 'creator', */
+                    attributes: ['name', 'email'],
+                },
+                {model: Categories},
+                {model: Financing_Goals}
+
+            ]
+        })
+        if (projects) {
+            return res.status(200).json(projects)
+        } else {
+            return res.status(404).send('No projects found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
+async function createnewproject  (req, res) {
+    try {
+         req.body.creator_id = res.locals.user.id
+         console.log(req.body)
+         
+         const  startproject = await Project.create(req.body)
+         startproject.addFinancing_Goals(req.body.financing_Goals) 
+         startproject.addCategories(req.body.categories) 
+         
+         console.log(startproject)
+        return res.status(200).json(startproject);
+
+        
+    } catch (error) {
+        res.status(500).send(error.message)
+        
+    }
+} 
+
+
+
 module.exports = {
     getAllProjects,
     getOneProject,
@@ -121,4 +148,5 @@ module.exports = {
     deleteProject,
     getAllProjectsEager,
     getOneProjectEager,
+    createnewproject,
 }

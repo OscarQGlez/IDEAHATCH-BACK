@@ -18,7 +18,6 @@ const Users = sequelize.define('Users',
         },
         date_of_Birth: { type: DataTypes.DATE,},
         country:  { type: DataTypes.STRING, },
-        user_type :{ type: DataTypes.STRING },
         usertype: { type: DataTypes.STRING, defaultValue: "user" }
     },
         { timestamps: false },
