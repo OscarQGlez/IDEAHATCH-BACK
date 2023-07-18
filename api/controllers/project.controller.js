@@ -2,6 +2,8 @@ const Project = require('../models/projects.model')
 const User = require('../models/user.model')
 const Categories  = require ('../models/categories.model')
 const Financing_Goals = require('../models/financing_Goals.model')
+const { subscribe } = require('../routes')
+const Projects = require('../models/projects.model')
 
 async function getAllProjects(req, res) {
     try {
@@ -121,14 +123,28 @@ async function getAllProjectsEager(req, res) {
 
 async function createnewproject  (req, res) {
     try {
-         req.body.creator_id = res.locals.user.id
-         console.log(req.body)
+         /* req.body.creator_id = res.locals.user.id
+         console.log(req.body) */
+         const user= await User.findByPk (res.locals.user.id) 
          
-         const  startproject = await Project.create(req.body)
-         startproject.addFinancing_Goals(req.body.financing_Goals) 
-         startproject.addCategories(req.body.categories) 
+         const categories = await Categories.findByPk (req.body.categories)
+
+         const  startproject = await user.createProject({
+            title: req.body.title,
+            subtitle: req.body.subtitle, 
+            Project_Description: req.body.Project_Description,
+            Deadline: req.body.Deadline,
+            Status: req.body.Status,
+            Project_Creation_Date: req.body.Project_Creation_Date,
+            Project_Update_Date: req.body.Project_Update_Date,
+            Project_Type:req.body.Project_Type,
+
+        })       
+        await startproject.createFinancing_Goal({goal_amount: req.body.goal_amount})
+
+        await startproject.addCategories (categories)
          
-         console.log(startproject)
+  /*        console.log(startproject) */
         return res.status(200).json(startproject);
 
         

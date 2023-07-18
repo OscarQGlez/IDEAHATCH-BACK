@@ -13,7 +13,7 @@ const connectDB = async () => {
   try {
     await sequelize.authenticate()
     createRelations()
-    await sequelize.sync({ alter: true })
+    await sequelize.sync() /* {alter: true} */
   } catch (error) {
     console.log(error)
     throw new Error('Cannot connect to DB - IDEAHATCH')

@@ -17,7 +17,7 @@ router.post('/', createProject)
 router.put('/:id',  updateProject)
 router.delete('/:id', deleteProject)
     router.get('/eager',  getAllProjectsEager)
-    router.post('/newproject',createnewproject)
+    router.post('/newproject', checkAuth, createnewproject)
 router.get('/eager:id', getOneProjectEager)
 
 

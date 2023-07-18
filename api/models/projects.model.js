@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 
 const Projects = sequelize.define('Projects',
     {
-        creator_id: {type: DataTypes.INTEGER,},
+        /* creator_id: {type: DataTypes.INTEGER,}, */
         title: {type: DataTypes.STRING,},
         subtitle: {type: DataTypes.TEXT,},
         Project_Description: {type: DataTypes.TEXT,},
